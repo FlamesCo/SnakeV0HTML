@@ -1,0 +1,669 @@
+
+<html>
+    <head>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+var canvas = document.createElement('canvas');
+canvas.width = 600;
+canvas.height = 600;
+document.body.appendChild(canvas);
+var ctx = canvas.getContext('2d');
+
+var snake = {
+  x: 300,
+  y: 300,
+  dx: 0,
+  dy: 0,
+  size: 10,
+  speed: 10,
+  tail: [],
+  tailLength: 0,
+  color: '#00ff00',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+    for (var i = 0; i < this.tail.length; i++) {
+      ctx.fillRect(this.tail[i].x, this.tail[i].y, this.size, this.size);
+    }
+  },
+  update: function() {
+    this.x += this.dx;
+    this.y += this.dy;
+    if (this.x < 0) {
+      this.x = canvas.width;
+    }
+    if (this.x > canvas.width) {
+      this.x = 0;
+    }
+    if (this.y < 0) {
+      this.y = canvas.height;
+    }
+    if (this.y > canvas.height) {
+      this.y = 0;
+    }
+    this.tail.push({x: this.x, y: this.y});
+    while (this.tail.length > this.tailLength) {
+      this.tail.shift();
+    }
+  }
+};
+
+var apple = {
+  x: 0,
+  y: 0,
+  size: 10,
+  color: '#ff0000',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  },
+  update: function() {
+    if (this.x === snake.x && this.y === snake.y) {
+      this.x = Math.floor(Math.random() * canvas.width / this.size) * this.size;
+      this.y = Math.floor(Math.random() * canvas.height / this.size) * this.size;
+      snake.tailLength++;
+    }
+  }
+};
+
+var keys = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
+
+var keyState = {};
+
+window.addEventListener('keydown', function(e) {
+  keyState[e.keyCode] = true;
+});
+
+window.addEventListener('keyup', function(e) {
+  keyState[e.keyCode] = false;
+});
+
+function loop() {
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  snake.update();
+  snake.draw();
+  apple.update();
+  apple.draw();
+  if (keyState[keys.left]) {
+    snake.dx = -snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.up]) {
+    snake.dx = 0;
+    snake.dy = -snake.speed;
+  }
+  if (keyState[keys.right]) {
+    snake.dx = snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.down]) {
+    snake.dx = 0;
+    snake.dy = snake.speed;
+  }
+  window.requestAnimationFrame(loop);
+}
+
+window.requestAnimationFrame(loop);
+
+var canvas = document.createElement('canvas');
+canvas.width = 600;
+canvas.height = 600;
+document.body.appendChild(canvas);
+var ctx = canvas.getContext('2d');
+
+var snake = {
+  x: 300,
+  y: 300,
+  dx: 0,
+  dy: 0,
+  size: 10,
+  speed: 10,
+  tail: [],
+  tailLength: 0,
+  color: '#00ff00',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+    for (var i = 0; i < this.tail.length; i++) {
+      ctx.fillRect(this.tail[i].x, this.tail[i].y, this.size, this.size);
+    }
+  },
+  update: function() {
+    this.x += this.dx;
+    this.y += this.dy;
+    if (this.x < 0) {
+      this.x = canvas.width;
+    }
+    if (this.x > canvas.width) {
+      this.x = 0;
+    }
+    if (this.y < 0) {
+      this.y = canvas.height;
+    }
+    if (this.y > canvas.height) {
+      this.y = 0;
+    }
+    this.tail.push({x: this.x, y: this.y});
+    while (this.tail.length > this.tailLength) {
+      this.tail.shift();
+    }
+  }
+};
+
+var apple = {
+  x: 0,
+  y: 0,
+  size: 10,
+  color: '#ff0000',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  },
+  update: function() {
+    if (this.x === snake.x && this.y === snake.y) {
+      this.x = Math.floor(Math.random() * canvas.width / this.size) * this.size;
+      this.y = Math.floor(Math.random() * canvas.height / this.size) * this.size;
+      snake.tailLength++;
+    }
+  }
+};
+
+var keys = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
+
+var keyState = {};
+
+window.addEventListener('keydown', function(e) {
+  keyState[e.keyCode] = true;
+});
+
+window.addEventListener('keyup', function(e) {
+  keyState[e.keyCode] = false;
+});
+
+function loop() {
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  snake.update();
+  snake.draw();
+  apple.update();
+  apple.draw();
+  if (keyState[keys.left]) {
+    snake.dx = -snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.up]) {
+    snake.dx = 0;
+    snake.dy = -snake.speed;
+  }
+  if (keyState[keys.right]) {
+    snake.dx = snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.down]) {
+    snake.dx = 0;
+    snake.dy = snake.speed;
+  }
+  window.requestAnimationFrame(loop);
+}
+
+window.requestAnimationFrame(loop);
+
+var canvas = document.createElement('canvas');
+canvas.width = 600;
+canvas.height = 600;
+document.body.appendChild(canvas);
+var ctx = canvas.getContext('2d');
+
+var snake = {
+  x: 300,
+  y: 300,
+  dx: 0,
+  dy: 0,
+  size: 10,
+  speed: 10,
+  tail: [],
+  tailLength: 0,
+  color: '#00ff00',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+    for (var i = 0; i < this.tail.length; i++) {
+      ctx.fillRect(this.tail[i].x, this.tail[i].y, this.size, this.size);
+    }
+  },
+  update: function() {
+    this.x += this.dx;
+    this.y += this.dy;
+    if (this.x < 0) {
+      this.x = canvas.width;
+    }
+    if (this.x > canvas.width) {
+      this.x = 0;
+    }
+    if (this.y < 0) {
+      this.y = canvas.height;
+    }
+    if (this.y > canvas.height) {
+      this.y = 0;
+    }
+    this.tail.push({x: this.x, y: this.y});
+    while (this.tail.length > this.tailLength) {
+      this.tail.shift();
+    }
+  }
+};
+
+var apple = {
+  x: 0,
+  y: 0,
+  size: 10,
+  color: '#ff0000',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  },
+  update: function() {
+    if (this.x === snake.x && this.y === snake.y) {
+      this.x = Math.floor(Math.random() * canvas.width / this.size) * this.size;
+      this.y = Math.floor(Math.random() * canvas.height / this.size) * this.size;
+      snake.tailLength++;
+    }
+  }
+};
+
+var keys = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
+
+var keyState = {};
+
+window.addEventListener('keydown', function(e) {
+  keyState[e.keyCode] = true;
+});
+
+window.addEventListener('keyup', function(e) {
+  keyState[e.keyCode] = false;
+});
+
+function loop() {
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  snake.update();
+  snake.draw();
+  apple.update();
+  apple.draw();
+  if (keyState[keys.left]) {
+    snake.dx = -snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.up]) {
+    snake.dx = 0;
+    snake.dy = -snake.speed;
+  }
+  if (keyState[keys.right]) {
+    snake.dx = snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.down]) {
+    snake.dx = 0;
+    snake.dy = snake.speed;
+  }
+  window.requestAnimationFrame(loop);
+}
+
+window.requestAnimationFrame(loop);
+
+var canvas = document.createElement('canvas');
+canvas.width = 600;
+canvas.height = 600;
+document.body.appendChild(canvas);
+var ctx = canvas.getContext('2d');
+
+var snake = {
+  x: 300,
+  y: 300,
+  dx: 0,
+  dy: 0,
+  size: 10,
+  speed: 10,
+  tail: [],
+  tailLength: 0,
+  color: '#00ff00',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+    for (var i = 0; i < this.tail.length; i++) {
+      ctx.fillRect(this.tail[i].x, this.tail[i].y, this.size, this.size);
+    }
+  },
+  update: function() {
+    this.x += this.dx;
+    this.y += this.dy;
+    if (this.x < 0) {
+      this.x = canvas.width;
+    }
+    if (this.x > canvas.width) {
+      this.x = 0;
+    }
+    if (this.y < 0) {
+      this.y = canvas.height;
+    }
+    if (this.y > canvas.height) {
+      this.y = 0;
+    }
+    this.tail.push({x: this.x, y: this.y});
+    while (this.tail.length > this.tailLength) {
+      this.tail.shift();
+    }
+  }
+};
+
+var apple = {
+  x: 0,
+  y: 0,
+  size: 10,
+  color: '#ff0000',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  },
+  update: function() {
+    if (this.x === snake.x && this.y === snake.y) {
+      this.x = Math.floor(Math.random() * canvas.width / this.size) * this.size;
+      this.y = Math.floor(Math.random() * canvas.height / this.size) * this.size;
+      snake.tailLength++;
+    }
+  }
+};
+
+var keys = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
+
+var keyState = {};
+
+window.addEventListener('keydown', function(e) {
+  keyState[e.keyCode] = true;
+});
+
+window.addEventListener('keyup', function(e) {
+  keyState[e.keyCode] = false;
+});
+
+function loop() {
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  snake.update();
+  snake.draw();
+  apple.update();
+  apple.draw();
+  if (keyState[keys.left]) {
+    snake.dx = -snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.up]) {
+    snake.dx = 0;
+    snake.dy = -snake.speed;
+  }
+  if (keyState[keys.right]) {
+    snake.dx = snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.down]) {
+    snake.dx = 0;
+    snake.dy = snake.speed;
+  }
+  window.requestAnimationFrame(loop);
+}
+
+window.requestAnimationFrame(loop);
+
+var canvas = document.createElement('canvas');
+canvas.width = 600;
+canvas.height = 600;
+document.body.appendChild(canvas);
+var ctx = canvas.getContext('2d');
+
+var snake = {
+  x: 300,
+  y: 300,
+  dx: 0,
+  dy: 0,
+  size: 10,
+  speed: 10,
+  tail: [],
+  tailLength: 0,
+  color: '#00ff00',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+    for (var i = 0; i < this.tail.length; i++) {
+      ctx.fillRect(this.tail[i].x, this.tail[i].y, this.size, this.size);
+    }
+  },
+  update: function() {
+    this.x += this.dx;
+    this.y += this.dy;
+    if (this.x < 0) {
+      this.x = canvas.width;
+    }
+    if (this.x > canvas.width) {
+      this.x = 0;
+    }
+    if (this.y < 0) {
+      this.y = canvas.height;
+    }
+    if (this.y > canvas.height) {
+      this.y = 0;
+    }
+    this.tail.push({x: this.x, y: this.y});
+    while (this.tail.length > this.tailLength) {
+      this.tail.shift();
+    }
+  }
+};
+
+var apple = {
+  x: 0,
+  y: 0,
+  size: 10,
+  color: '#ff0000',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  },
+  update: function() {
+    if (this.x === snake.x && this.y === snake.y) {
+      this.x = Math.floor(Math.random() * canvas.width / this.size) * this.size;
+      this.y = Math.floor(Math.random() * canvas.height / this.size) * this.size;
+      snake.tailLength++;
+    }
+  }
+};
+
+var keys = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
+
+var keyState = {};
+
+window.addEventListener('keydown', function(e) {
+  keyState[e.keyCode] = true;
+});
+
+window.addEventListener('keyup', function(e) {
+  keyState[e.keyCode] = false;
+});
+
+function loop() {
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  snake.update();
+  snake.draw();
+  apple.update();
+  apple.draw();
+  if (keyState[keys.left]) {
+    snake.dx = -snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.up]) {
+    snake.dx = 0;
+    snake.dy = -snake.speed;
+  }
+  if (keyState[keys.right]) {
+    snake.dx = snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.down]) {
+    snake.dx = 0;
+    snake.dy = snake.speed;
+  }
+  window.requestAnimationFrame(loop);
+}
+
+window.requestAnimationFrame(loop);
+
+var canvas = document.createElement('canvas');
+canvas.width = 600;
+canvas.height = 600;
+document.body.appendChild(canvas);
+var ctx = canvas.getContext('2d');
+
+var snake = {
+  x: 300,
+  y: 300,
+  dx: 0,
+  dy: 0,
+  size: 10,
+  speed: 10,
+  tail: [],
+  tailLength: 0,
+  color: '#00ff00',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+    for (var i = 0; i < this.tail.length; i++) {
+      ctx.fillRect(this.tail[i].x, this.tail[i].y, this.size, this.size);
+    }
+  },
+  update: function() {
+    this.x += this.dx;
+    this.y += this.dy;
+    if (this.x < 0) {
+      this.x = canvas.width;
+    }
+    if (this.x > canvas.width) {
+      this.x = 0;
+    }
+    if (this.y < 0) {
+      this.y = canvas.height;
+    }
+    if (this.y > canvas.height) {
+      this.y = 0;
+    }
+    this.tail.push({x: this.x, y: this.y});
+    while (this.tail.length > this.tailLength) {
+      this.tail.shift();
+    }
+  }
+};
+
+var apple = {
+  x: 0,
+  y: 0,
+  size: 10,
+  color: '#ff0000',
+  draw: function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  },
+  update: function() {
+    if (this.x === snake.x && this.y === snake.y) {
+      this.x = Math.floor(Math.random() * canvas.width / this.size) * this.size;
+      this.y = Math.floor(Math.random() * canvas.height / this.size) * this.size;
+      snake.tailLength++;
+    }
+  }
+};
+
+var keys = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
+
+var keyState = {};
+
+window.addEventListener('keydown', function(e) {
+  keyState[e.keyCode] = true;
+});
+
+window.addEventListener('keyup', function(e) {
+  keyState[e.keyCode] = false;
+});
+
+function loop() {
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  snake.update();
+  snake.draw();
+  apple.update();
+  apple.draw();
+  if (keyState[keys.left]) {
+    snake.dx = -snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.up]) {
+    snake.dx = 0;
+    snake.dy = -snake.speed;
+  }
+  if (keyState[keys.right]) {
+    snake.dx = snake.speed;
+    snake.dy = 0;
+  }
+  if (keyState[keys.down]) {
+    snake.dx = 0;
+    snake.dy = snake.speed;
+  }
+  window.requestAnimationFrame(loop);
+}
+
+window.requestAnimationFrame(loop);
+});
+        </script>
+    </head>
+    <body style="margin: 0;">
+        <div style="background-color: black; position: fixed; bottom: 0; width: 100%; height: 20px; padding: 20px; opacity: .85; z-index: 1000;">
+        </div></body></html>
+        <!-- Make a copyright label on the top in vaproware css-->
+      <!--Make a copyright statemnt that says [C] - Flames 20XX--> 
+    <!--Make a copyright logo that says [C] Flames LLC in CSS--> 
+    <div style="background-color: black; position: fixed; bottom: 0; width: 100%; height: 20px; padding: 20px; opacity: .85; z-index: 1000;">" 
+        </div>
+        <body style="margin: 0;"> <div style="background-color: black; position: fixed; bottom: 0; width: 100%; height: 20px; padding: 20px; opacity: .85; z-index: 1000;">  
+            <p align = "center" style="color: white;">Copyright &copy; Flames LLC</p>
+    </body>
+        </html>
+         </div>
